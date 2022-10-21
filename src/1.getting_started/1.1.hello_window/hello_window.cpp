@@ -5,7 +5,8 @@
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
-
+// ctrl + klik na funkciju pa je otvori
+//ALT+SHIFT+F10
 // settings
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
@@ -18,7 +19,7 @@ int main()
     //Cetvrti komentar
     // glfw: initialize and configure
     // ------------------------------
-    glfwInit();
+    glfwInit();//INICIJALIZUJE GLFW BIBLIOTEKU
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3); // zapamti ovaj komentar!
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -36,12 +37,12 @@ int main()
         glfwTerminate();
         return -1;
     }
-    glfwMakeContextCurrent(window);
+    glfwMakeContextCurrent(window); // u ovaj prozor crtamo 
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
     // glad: load all OpenGL function pointers
     // ---------------------------------------
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))//pokupi sve funkcije i omogucava nam da ih koristimo
     {
         std::cout << "Failed to initialize GLAD" << std::endl;
         return -1;
@@ -53,12 +54,15 @@ int main()
     {
         // input
         // -----
-        processInput(window);
+        processInput(window); //update
 
+        //render
+        glClearColor(1.0f, 0.5f, 0.2f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
         glfwSwapBuffers(window);
-        glfwPollEvents();
+        glfwPollEvents();//ovde je poll na kraju jer moze tako
     }
 
     // glfw: terminate, clearing all previously allocated GLFW resources.
@@ -73,6 +77,9 @@ void processInput(GLFWwindow *window)
 {
     if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
+    if(glfwGetKey(window,GLFW_KEY_W) == GLFW_PRESS){
+        std::cerr << "W";
+    }
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes
